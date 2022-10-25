@@ -1,3 +1,4 @@
+import { GiStopwatch } from "react-icons/gi";
 import StudyTime from "../Components/StudyTime/timer";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -48,7 +49,7 @@ const InputForm = ({ moreThan24Hours, hoursToWait, lastUpdated }) => {
       <div
         className={`${disabled ? "transition duration-1000 grayscale" : ""}`}
       >
-        <h1>Number of hours studied:</h1>
+        <h1 className="mb-4">Number of hours studied today:</h1>
         <div className="grid grid-cols-2 h-[10rem] gap-x-8 drop-shadow">
           <div className="h-full p-4 grid grid-cols-2 gap-x-8 justify-start items-center w-full border-blue-500 border-2 rounded-md">
             <div>
@@ -100,7 +101,7 @@ const InputForm = ({ moreThan24Hours, hoursToWait, lastUpdated }) => {
         </div>
       </div>
       {hoursToWait !== 0 && (
-        <h1 className="text-center my-5 text-red-500 font-semibold drop-shadow text-lg">
+        <h1 className="text-center my-5 text-blue-500 font-medium drop-shadow text-lg">
           You need to wait {hoursToWait} hours before adding a new time.
           <br />
           Last updated on: {lastUpdated}
@@ -124,7 +125,10 @@ const HomePage = ({ setIsLogin }) => {
       const res = await axios.get("/api/studyTimer/", {
         headers: { Authorization: token },
       });
-      console.log(res.data.length);
+      const getUser = await axios.get("user/verify", {
+        headers: { Authorization: token },
+      });
+      setUsername(getUser.data.username);
       if (res.data.length > 0) {
         const then = new Date(res.data[res.data.length - 1].createdAt);
         const now = new Date();
@@ -134,13 +138,7 @@ const HomePage = ({ setIsLogin }) => {
         setHoursToWait(24 - hours);
         setChartData(res.data);
         setLastUpdated(then.toLocaleString());
-        // console.log(then);
-
-        setUsername(res.data[0].name);
       } else setMoreThan24Hours(true);
-      console.log(res.data);
-      console.log(moreThan24Hours);
-      console.log(hoursToWait);
     };
     const token = localStorage.getItem("tokenStore");
     setToken(token);
@@ -151,15 +149,26 @@ const HomePage = ({ setIsLogin }) => {
   return (
     <div className="h-screen bg-gray-100">
       {/*Navbar*/}
-      <div className="w-full p-4 flex justify-between dark:bg-gray-600 dark:text-white fixed">
+      <div className="w-full p-4 text-2xl flex justify-between bg-white text-blue-500 fixed">
         <div>
-          <h1>StudyTime</h1>
+          <h1 className="text-black  font-semibold flex items-center gap-x-1 ">
+            <span>
+              <GiStopwatch
+                className="inline"
+                color="rgb(59 130 246)"
+                size={"2rem"}
+              />
+            </span>
+            Study
+            <span className="text-blue-500 ">Time</span>
+          </h1>
         </div>
         <div className="flex gap-x-4">
-          <button>
+          {/* <button>
             <MdLightMode />
-          </button>
+          </button> */}
           <button
+            className="bg-blue-500 text-white px-2 py-1 rounded-md text-xl"
             onClick={() => {
               setIsLogin(false);
               localStorage.clear();
@@ -170,9 +179,11 @@ const HomePage = ({ setIsLogin }) => {
         </div>
       </div>
       {/*Body*/}
-      <div className="grid grid-cols-12 gap-x-4">
-        <div className="col-span-6 h-screen pt-20 px-4 justify-center border-r-8 border-dotted">
-          <h1 className="">Hello, {username}</h1>
+      <div className="grid grid-cols-12 h-screen gap-x-4 pt-6">
+        <div className="col-span-6 pt-20 px-4 justify-center border-r-8 border-blue-100 border-dotted text-2xl">
+          <h1 className="">
+            Hello, <span className="text-blue-500 font-medium">{username}</span>
+          </h1>
           <div className="mt-10 flex flex-col gap-y-20">
             <div className="p-4 rounded-md bg-white drop-shadow">
               <InputForm
@@ -182,10 +193,9 @@ const HomePage = ({ setIsLogin }) => {
               />
             </div>
             <div className="p-4 rounded-md bg-white drop-shadow">
-              <h1>Quote for the day:</h1>
-              <br />
-              <p className="italic ">"Quote"</p>
-              <p className="text-end">- Author</p>
+              <h1 className="text-2xl text-gray-400 text-center">
+                <i>Todo list component coming here soon!</i>
+              </h1>
             </div>
           </div>
         </div>

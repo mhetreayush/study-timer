@@ -1,11 +1,13 @@
 import { Formik } from "formik";
 import axios from "axios";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 const SignupForm = ({ setIsSignup }) => {
   const [error, setError] = useState("");
   return (
-    <div>
-      <h1 className="text-2xl font-semibold">Register</h1>
+    <div className="flex flex-col gap-y-8 w-full">
+      <h1 className="text-2xl font-semibold text-center">Register</h1>
+      <hr className="h-[0.1rem] w-1/2 self-center bg-gray-200 rounded-md border-none" />
       <Formik
         enableReinitialize
         initialValues={{ email: "", password: "", username: "" }}
@@ -28,7 +30,8 @@ const SignupForm = ({ setIsSignup }) => {
                 email: values.email,
                 password: values.password,
               });
-              alert("User created successfully");
+              toast.success("User created successfully");
+              setTimeout(() => setIsSignup(false), 2000);
             } catch (err) {
               err.response.data.msg && setError(err.response.data.msg);
             }
@@ -54,44 +57,77 @@ const SignupForm = ({ setIsSignup }) => {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="username"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.username}
-              placeholder="username"
-              className="border-2 p-2"
-            />
-            <input
-              type="email"
-              name="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
-              placeholder="email"
-              className="border-2 p-2"
-            />
-            {errors.email && touched.email && errors.email}
-            <input
-              type="password"
-              name="password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.password}
-              placeholder="password"
-              className="border-2 p-2"
-            />
-            {errors.password && touched.password && errors.password}
-            <button type="submit" disabled={isSubmitting}>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-y-6 w-full"
+          >
+            <div>
+              <ToastContainer position="top-left" />
+              <h1>
+                Username<span className="text-red-500"> *</span>
+              </h1>
+              <input
+                type="text"
+                name="username"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.username}
+                placeholder="John Doe"
+                className="border-2 p-2 w-full rounded-md my-2"
+              />
+            </div>
+            <div>
+              <h1>
+                Email<span className="text-red-500"> *</span>
+              </h1>
+              <input
+                type="email"
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                placeholder="johndoe@example.com"
+                className="border-2 p-2 w-full rounded-md my-2"
+              />
+              <br />
+              {errors.email && touched.email && errors.email}
+            </div>
+            <div>
+              <h1>
+                Password<span className="text-red-500"> *</span>
+              </h1>
+              <input
+                type="password"
+                name="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                placeholder="Keepme$@fe"
+                className="border-2 p-2 w-full rounded-md my-2"
+              />
+              <br />
+              {errors.password && touched.password && errors.password}
+            </div>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-blue-500 p-2 mt-4 text-white w-2/4 rounded-md self-center"
+            >
               Submit
             </button>
           </form>
         )}
       </Formik>
       {error}
-      Have an account? <button onClick={() => setIsSignup(false)}>Login</button>
+      <div className="flex gap-x-1 mt-2 items-center self-center">
+        Already have an account?{" "}
+        <button
+          className="underline hover:text-blue-500"
+          onClick={() => setIsSignup(false)}
+        >
+          Login
+        </button>
+      </div>
     </div>
   );
 };

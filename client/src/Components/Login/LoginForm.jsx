@@ -114,7 +114,6 @@ const LoginForm = ({ setIsLogin, setIsSignup }) => {
         )}
       </Formik>
       {error}
-      {/* <hr className="h-[0.1rem] w-1/2 self-center bg-gray-200 rounded-md border-none" /> */}
       <div className="flex gap-x-1 mt-2 items-center self-center">
         Don&apos;t have an account?{" "}
         <button
