@@ -171,7 +171,7 @@ const HomePage = ({ setIsLogin }) => {
             className="bg-blue-500 text-white px-2 py-1 rounded-md text-xl"
             onClick={() => {
               setIsLogin(false);
-              localStorage.clear();
+              localStorage.setItem("tokenStore", "");
             }}
           >
             Logout

@@ -6,6 +6,7 @@ import { ReactComponent as LoginLogo } from "../../assets/loginPageIll.svg";
 // Illustration link: https://www.freepik.com/free-vector/learning-concept-illustration_14230944.htm#query=study%20time&position=1&from_view=search&track=sph
 const LoginPage = ({ setIsLogin }) => {
   const [isSignup, setIsSignup] = useState(false);
+  const [regEmail, setRegEmail] = useState("");
   return (
     <div className="grid grid-cols-10 h-[100vh]">
       <div className="col-span-6 bg-gradient-to-t from-yellow-600 to-yellow-300 border-white">
@@ -25,9 +26,15 @@ const LoginPage = ({ setIsLogin }) => {
         </h1>
         <div className="flex h-fit my-20">
           {isSignup ? (
-            isSignup && <SignupForm setIsSignup={setIsSignup} />
+            isSignup && (
+              <SignupForm setIsSignup={setIsSignup} setRegEmail={setRegEmail} />
+            )
           ) : (
-            <LoginForm setIsLogin={setIsLogin} setIsSignup={setIsSignup} />
+            <LoginForm
+              setIsLogin={setIsLogin}
+              regEmail={regEmail}
+              setIsSignup={setIsSignup}
+            />
           )}
         </div>
       </div>

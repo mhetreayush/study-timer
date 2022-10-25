@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import { useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
 import { toast, ToastContainer } from "react-toastify";
-const LoginForm = ({ setIsLogin, setIsSignup }) => {
+const LoginForm = ({ setIsLogin, setIsSignup, regEmail }) => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -12,7 +12,7 @@ const LoginForm = ({ setIsLogin, setIsSignup }) => {
       <hr className="h-[0.1rem] w-1/2 self-center bg-gray-200 rounded-md border-none" />
       <Formik
         enableReinitialize
-        initialValues={{ password: "" }}
+        initialValues={{ password: "", email: regEmail }}
         validate={(values) => {
           const errors = {};
           if (!values.email) {

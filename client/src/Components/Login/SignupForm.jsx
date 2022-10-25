@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import axios from "axios";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-const SignupForm = ({ setIsSignup }) => {
+const SignupForm = ({ setIsSignup, setRegEmail }) => {
   const [error, setError] = useState("");
   return (
     <div className="flex flex-col gap-y-8 w-full">
@@ -30,6 +30,7 @@ const SignupForm = ({ setIsSignup }) => {
                 email: values.email,
                 password: values.password,
               });
+              setRegEmail(values.email);
               toast.success("User created successfully");
               setTimeout(() => setIsSignup(false), 2000);
             } catch (err) {
