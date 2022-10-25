@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import axios from "axios";
 import { useState } from "react";
-const SignupForm = () => {
+const SignupForm = ({ setIsSignup }) => {
   const [error, setError] = useState("");
   return (
     <div>
@@ -28,16 +28,17 @@ const SignupForm = () => {
                 email: values.email,
                 password: values.password,
               });
+              alert("User created successfully");
             } catch (err) {
-              resetForm(
-                (values = {
-                  username: "",
-                  email: "",
-                  password: "",
-                })
-              );
               err.response.data.msg && setError(err.response.data.msg);
             }
+            resetForm(
+              (values = {
+                username: "",
+                email: "",
+                password: "",
+              })
+            );
             // console.log(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }, 400);
@@ -90,7 +91,7 @@ const SignupForm = () => {
         )}
       </Formik>
       {error}
-      Have an account? <button>Login</button>
+      Have an account? <button onClick={() => setIsSignup(false)}>Login</button>
     </div>
   );
 };

@@ -3,16 +3,16 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { AiFillCheckCircle } from "react-icons/ai";
 import { MdLightMode } from "react-icons/md";
-const InputForm = ({ setChartData }) => {
+const InputForm = ({ moreThan24Hours, hoursToWait, lastUpdated }) => {
+  console.log("inside, ", lastUpdated);
+  console.log(moreThan24Hours);
   const [noOfHours, setNoOfHours] = useState(8);
   const [disabled, setDisabled] = useState(false);
-  const [timer, setTimer] = useState({
-    noOfHoursStudied: "",
-  });
+  useEffect(() => {
+    setDisabled(hoursToWait !== 0);
+  }, [hoursToWait]);
 
-  //   const history = useNavigate();
   const CreateTimer = async () => {
     try {
       const token = localStorage.getItem("tokenStore");
@@ -31,10 +31,9 @@ const InputForm = ({ setChartData }) => {
       );
       toast.success("Timer created successfully");
       setDisabled(true);
-      const newChart = axios.get("/api/studyTimer/", {
-        headers: { Authorization: token },
-      });
-      setChartData(newChart.data);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       toast.error(error.response.data.msg);
     }
@@ -100,13 +99,24 @@ const InputForm = ({ setChartData }) => {
           </div>
         </div>
       </div>
+      {hoursToWait !== 0 && (
+        <h1 className="text-center my-5 text-red-500 font-semibold drop-shadow text-lg">
+          You need to wait {hoursToWait} hours before adding a new time.
+          <br />
+          Last updated on: {lastUpdated}
+          <br />
+        </h1>
+      )}
     </div>
   );
 };
 
 const HomePage = ({ setIsLogin }) => {
+  const [moreThan24Hours, setMoreThan24Hours] = useState(false);
+  const [hoursToWait, setHoursToWait] = useState(0);
   const [chartData, setChartData] = useState([]);
-  const [timers, setTimers] = useState([]);
+  const [lastUpdated, setLastUpdated] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
   useEffect(() => {
@@ -114,8 +124,23 @@ const HomePage = ({ setIsLogin }) => {
       const res = await axios.get("/api/studyTimer/", {
         headers: { Authorization: token },
       });
-      setChartData(res.data);
-      setUsername(res.data[0].name);
+      console.log(res.data.length);
+      if (res.data.length > 0) {
+        const then = new Date(res.data[res.data.length - 1].createdAt);
+        const now = new Date();
+        const diffTime = Math.abs(now.getTime() - then.getTime());
+        const hours = Math.floor(diffTime / (1000 * 60 * 60));
+        setMoreThan24Hours(hours >= 24);
+        setHoursToWait(24 - hours);
+        setChartData(res.data);
+        setLastUpdated(then.toLocaleString());
+        // console.log(then);
+
+        setUsername(res.data[0].name);
+      } else setMoreThan24Hours(true);
+      console.log(res.data);
+      console.log(moreThan24Hours);
+      console.log(hoursToWait);
     };
     const token = localStorage.getItem("tokenStore");
     setToken(token);
@@ -150,7 +175,11 @@ const HomePage = ({ setIsLogin }) => {
           <h1 className="">Hello, {username}</h1>
           <div className="mt-10 flex flex-col gap-y-20">
             <div className="p-4 rounded-md bg-white drop-shadow">
-              <InputForm />
+              <InputForm
+                moreThan24Hours={moreThan24Hours}
+                hoursToWait={hoursToWait}
+                lastUpdated={lastUpdated}
+              />
             </div>
             <div className="p-4 rounded-md bg-white drop-shadow">
               <h1>Quote for the day:</h1>

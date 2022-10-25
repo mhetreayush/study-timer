@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -23,12 +22,6 @@ ChartJS.register(
 );
 const StudyTimeChart = ({ chartData }) => {
   const dataset = chartData;
-  // const [dataset, setDataset] = useState([]);
-  // setDataset((prevData) => (prevData = chartData));
-  // setInterval(() => setDataset(chartData), 3000);
-  const timeElapsed = Date.now();
-  const today = new Date(timeElapsed);
-  const day = today.toDateString().split(" ")[0];
   const options = {
     responsive: true,
     plugins: {
