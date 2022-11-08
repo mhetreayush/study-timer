@@ -4,16 +4,22 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const userRouter = require("./routes/userRouter");
 const studyTimerRouter = require("./routes/studyTimerRouter");
+const todoRouter = require("./routes/todoRouter");
+const helmet = require("helmet");
 const app = express();
 const path = require("path");
+
+const PORT = process.env.PORT || 5000;
+const URI = process.env.MONGODB_URL;
+
 app.use(express.json());
 app.use(cors());
-
+app.use(helmet());
 //routes
 app.use("/user", userRouter);
 app.use("/api/studyTimer", studyTimerRouter);
+app.use("/api/todo", todoRouter);
 //connect to MongoDB
-const URI = process.env.MONGODB_URL;
 mongoose.connect(
   URI,
   {
@@ -34,7 +40,6 @@ if (process.env.NODE_ENV === "production") {
     );
   });
 }
-const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

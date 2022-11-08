@@ -32,9 +32,9 @@ const SignupForm = ({ setIsSignup, setRegEmail }) => {
               });
               setRegEmail(values.email);
               toast.success("User created successfully");
-              setTimeout(() => setIsSignup(false), 2000);
+              setTimeout(() => setIsSignup(false), 1000);
             } catch (err) {
-              err.response.data.msg && setError(err.response.data.msg);
+              err.response.data.msg && toast.error(err.response.data.msg);
             }
             resetForm(
               (values = {
@@ -43,7 +43,6 @@ const SignupForm = ({ setIsSignup, setRegEmail }) => {
                 password: "",
               })
             );
-            // console.log(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }, 400);
         }}
@@ -63,7 +62,7 @@ const SignupForm = ({ setIsSignup, setRegEmail }) => {
             className="flex flex-col gap-y-6 w-full"
           >
             <div>
-              <ToastContainer position="top-left" />
+              <ToastContainer position="bottom-right" />
               <h1>
                 Username<span className="text-red-500"> *</span>
               </h1>

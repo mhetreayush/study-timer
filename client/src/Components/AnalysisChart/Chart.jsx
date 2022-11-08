@@ -58,11 +58,7 @@ const StudyTimeChart = ({ chartData }) => {
   };
   return (
     <>
-      <Line
-        className="md:rotate-0 -rotate-90 px-8"
-        options={options}
-        data={data}
-      />
+      <Line className="md:px-8" options={options} data={data} />
     </>
   );
 };

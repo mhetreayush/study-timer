@@ -24,7 +24,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <div className="hidden md:block">
+      <div className="bg-gray-100">
         {isLogin ? (
           <HomePage
             setIsLogin={setIsLogin}

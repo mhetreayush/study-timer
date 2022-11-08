@@ -5,12 +5,13 @@
 /.pnp
 .pnp.js
 
+/server/node_modules
 # testing
 /coverage
 
 # production
 /build
-
+/azure-deployement
 # misc
 .DS_Store
 .env.local

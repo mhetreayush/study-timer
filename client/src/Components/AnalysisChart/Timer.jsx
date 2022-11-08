@@ -1,5 +1,5 @@
 import { useState } from "react";
-import StudyTimeChart from "./chart";
+import StudyTimeChart from "./Chart";
 
 const StudyTime = ({ chartData }) => {
   const isLg = window.innerWidth > 768;
@@ -9,7 +9,15 @@ const StudyTime = ({ chartData }) => {
       {!isLg && (
         <button onClick={() => setShowChart(!showChart)}>Show chart</button>
       )}
-      {showChart && <StudyTimeChart chartData={chartData} />}
+      {showChart && (
+        <div
+          className={`${
+            isLg ? "" : "absolute top-0 left-0 p-0 m-0 z-50 w-[100vw] h-[100vh]"
+          }`}
+        >
+          <StudyTimeChart chartData={chartData} />
+        </div>
+      )}
     </div>
   );
 };

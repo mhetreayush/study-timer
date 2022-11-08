@@ -38,7 +38,6 @@ const LoginForm = ({ setIsLogin, setIsSignup, regEmail }) => {
               resetForm((values = { email: "", password: "" }));
               err.response.data.msg && toast.error(err.response.data.msg);
             }
-            // console.log(JSON.stringify(values, null, 1));
             setSubmitting(false);
           }, 400);
         }}
