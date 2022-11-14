@@ -12,7 +12,7 @@ const TodoTemplate = ({ title, description, date, updateStatus }) => {
         <p className="text-blue-500">{description}</p>
       </div>
       <h1>date: {date}</h1>
-      <div className="flex gap-x-4 justify-start mt-5">
+      {/* <div className="flex gap-x-4 justify-start mt-5">
         <button className="bg-green-500 px-2 flex items-center gap-x-1 py-1 text-white   rounded-md">
           Start <BiPlay color="white" size={"1.3rem"} />
         </button>
@@ -27,7 +27,7 @@ const TodoTemplate = ({ title, description, date, updateStatus }) => {
         <button className="bg-red-500 px-2 flex items-center gap-x-3 py-1 text-white   rounded-md">
           Delete <BiTrash color="white" size={"1.3rem"} />
         </button>
-      </div>
+      </div> */}
       {/* <div className="bg-blue-300 absolute -bottom-5 w-full z-50"></div> */}
     </div>
   );
@@ -164,14 +164,14 @@ const ToDoList = () => {
               >
                 Task List
               </li>
-              <li
+              {/* <li
                 className={`bg-${
                   activeTab === "ongoingList" ? "blue" : "gray"
                 }-100 ${commonClasses}`}
                 onClick={() => setActiveTab("ongoingList")}
               >
                 Ongoing List
-              </li>
+              </li> */}
             </ul>
             <div
               className={`border bg-blue-500 z-50 border-blue-500 mt-2 absolute bottom-0 ${
