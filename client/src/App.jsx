@@ -24,7 +24,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <div className="bg-gray-100">
+      <div className="bg-gray-100 hidden md:block">
         {isLogin ? (
           <HomePage
             setIsLogin={setIsLogin}
@@ -34,7 +34,7 @@ const App = () => {
           <LoginPage setIsLogin={setIsLogin} />
         )}
       </div>
-      <div className="md:hidden ">
+      <div className="md:hidden block">
         <h1 className="text-2xl flex mt-10 p-4 items-center justify-center font-semibold gap-x-1">
           <span>
             <GiStopwatch
