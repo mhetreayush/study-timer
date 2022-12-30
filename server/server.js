@@ -19,7 +19,9 @@ app.use(helmet());
 app.use("/user", userRouter);
 app.use("/api/studyTimer", studyTimerRouter);
 app.use("/api/todo", todoRouter);
+
 //connect to MongoDB
+
 mongoose.connect(
   URI,
   {
@@ -44,4 +46,6 @@ if (process.env.NODE_ENV === "production") {
 // app.listen(PORT, () => {
 //   console.log(`Server is running on port ${PORT}`);
 // });
-app.listen(process.env.PORT);
+app.listen(PORT || process.env.PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
