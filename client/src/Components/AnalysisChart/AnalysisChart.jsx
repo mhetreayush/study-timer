@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ToDoList from "../ToDoList/ToDoList";
 import StudyTime from "./Timer";
 import InputForm from "./InputForm";
 const AnalysisChart = () => {

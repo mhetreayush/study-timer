@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import LoginPage from "./Components/Login/LoginPage";
 import axios from "axios";
 import HomePage from "./pages/HomePage";
 import { GiStopwatch } from "react-icons/gi";
-import { useGoogleOneTapLogin } from "react-google-one-tap-login";
 const App = () => {
   const [refresh, setRefresh] = useState(false);
   const [isLogin, setIsLogin] = useState(false);

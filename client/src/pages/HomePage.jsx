@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { GiStopwatch } from "react-icons/gi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

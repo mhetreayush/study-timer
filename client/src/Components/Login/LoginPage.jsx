@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { useState } from "react";
