@@ -11,10 +11,28 @@ const path = require("path");
 
 const PORT = process.env.PORT || 5000;
 const URI = process.env.MONGODB_URL;
-
+const whitelist = [
+  "http://127.0.0.1:3000",
+  "http://localhost:3000",
+  "https://study-timer-production.up.railway.app/",
+  "http://localhost:4000",
+];
+const corsOptions = {
+  //origin: '*',
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS!"));
+    }
+  },
+  methods: ["GET, POST, PUT, PATCH, DELETE"],
+  allowHeaders: "*",
+};
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+
 //routes
 app.use("/user", userRouter);
 app.use("/api/studyTimer", studyTimerRouter);
@@ -46,6 +64,6 @@ if (process.env.NODE_ENV === "production") {
 // app.listen(PORT, () => {
 //   console.log(`Server is running on port ${PORT}`);
 // });
-app.listen(PORT || process.env.PORT, () => {
+app.listen((PORT) => {
   console.log(`Server is running on port ${PORT}`);
 });
