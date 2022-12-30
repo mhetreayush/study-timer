@@ -1,13 +1,34 @@
 import axios from "axios";
+// import GoogleOneTapLogin from "react-google-one-tap-login";
+import { useGoogleOneTapLogin } from "react-google-one-tap-login";
 import { Formik } from "formik";
 import { useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
 import { toast, ToastContainer } from "react-toastify";
 const LoginForm = ({ setIsLogin, setIsSignup, regEmail }) => {
+  useGoogleOneTapLogin({
+    onError: (error) => console.log(error),
+    onSuccess: (response) => console.log(response),
+    googleAccountConfigs: {
+      client_id:
+        "405559007623-gsdkiotat0t002msrlltb9ti4rpmmuor.apps.googleusercontent.com",
+    },
+  });
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="flex flex-col gap-y-8 w-full">
+      {/* <button>
+        <GoogleOneTapLogin
+          onError={(error) => console.log(error)}
+          onSuccess={(response) => console.log(response)}
+          googleAccountConfigs={{
+            client_id:
+              "405559007623-gsdkiotat0t002msrlltb9ti4rpmmuor.apps.googleusercontent.com",
+          }}
+        />
+        asd
+      </button> */}
       <h1 className="text-2xl font-semibold text-center">Log In</h1>
       <hr className="h-[0.1rem] w-1/2 self-center bg-gray-200 rounded-md border-none" />
       <Formik
